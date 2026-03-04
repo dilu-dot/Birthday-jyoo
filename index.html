@@ -1,118 +1,130 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Special For Jyoti ❤️</title>
+<title>For Jyoti ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  text-align:center;
+  font-family: 'Segoe UI', sans-serif;
   background:black;
   color:white;
+  text-align:center;
   overflow:hidden;
 }
 
-/* RED BANNER */
-.banner{
+/* Curtain */
+.curtain{
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  width:50%;
+  height:100vh;
   background:red;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:40px;
-  cursor:pointer;
-  transition:1s;
+  top:0;
+  transition:1.5s;
   z-index:10;
 }
+.left{ left:0; }
+.right{ right:0; }
 
-.banner.open{
-  height:0%;
-  font-size:0;
+.open-left{ transform:translateX(-100%); }
+.open-right{ transform:translateX(100%); }
+
+.enter{
+  position:fixed;
+  top:45%;
+  width:100%;
+  font-size:28px;
+  cursor:pointer;
+  z-index:20;
 }
 
-/* MAIN CONTENT */
 .content{
   display:none;
   padding-top:80px;
 }
 
-h1{
-  font-size:40px;
+/* Typing effect */
+.typing{
+  border-right:3px solid pink;
+  white-space:nowrap;
+  overflow:hidden;
+  width:0;
+  animation: typing 3s steps(20,end) forwards;
 }
 
-.countdown{
-  font-size:25px;
-  margin:20px;
+@keyframes typing{
+  from{ width:0 }
+  to{ width:220px }
 }
 
+/* Cake */
 .cake{
-  font-size:100px;
+  font-size:110px;
+  margin-top:20px;
   cursor:pointer;
-  margin-top:30px;
   transition:0.5s;
 }
 
-.message{
+.flame{
+  font-size:30px;
+  animation: flicker 0.5s infinite alternate;
+}
+
+@keyframes flicker{
+  from{ opacity:1; }
+  to{ opacity:0.5; }
+}
+
+#msg{
   display:none;
-  font-size:25px;
-  margin-top:20px;
+  font-size:24px;
   color:pink;
-}
-
-/* CONFETTI */
-.confetti{
-  position:fixed;
-  width:10px;
-  height:10px;
-  background:yellow;
-  top:-10px;
-  animation:fall 3s linear infinite;
-}
-
-@keyframes fall{
-  to{ transform:translateY(100vh) rotate(360deg);}
+  margin-top:20px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="banner" onclick="openSite()">
-🎀 Tap To Open 🎀
-</div>
+<div class="curtain left"></div>
+<div class="curtain right"></div>
 
-<div class="content" id="mainContent">
+<div class="enter" onclick="openCurtain()">🎀 Tap To Enter 🎀</div>
+
+<div class="content" id="main">
 
 <h1>Welcome Guyz 🎉</h1>
-<h2>Only For Jyoti ❤️</h2>
+<h2 class="typing">Only For Jyoti ❤️</h2>
 
-<div class="countdown" id="countdown"></div>
+<div id="countdown"></div>
 
+<div>
+<div class="flame" id="flame">🕯️🕯️🕯️</div>
 <div class="cake" onclick="cutCake()">🎂</div>
+</div>
 
-<div class="message" id="msg">
+<div id="msg">
 Happy Birthday Jyoti 💖🎉<br>
-May your smile always shine ✨
+You are Special ✨
 </div>
 
 </div>
+
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
 <script>
-function openSite(){
-  document.querySelector(".banner").classList.add("open");
+function openCurtain(){
+  document.querySelector(".left").classList.add("open-left");
+  document.querySelector(".right").classList.add("open-right");
+  document.querySelector(".enter").style.display="none";
   setTimeout(()=>{
-    document.querySelector(".banner").style.display="none";
-    document.getElementById("mainContent").style.display="block";
+    document.getElementById("main").style.display="block";
     document.body.style.overflow="auto";
-  },1000);
+    document.getElementById("music").play();
+  },1500);
 }
 
-/* COUNTDOWN */
+/* Countdown */
 var birthday = new Date("Nov 15, 2026 00:00:00").getTime();
 
 setInterval(function(){
@@ -125,25 +137,14 @@ setInterval(function(){
   var seconds = Math.floor((distance%(1000*60))/1000);
 
   document.getElementById("countdown").innerHTML =
-  "🎂 Birthday Countdown: "+days+"d "+hours+"h "
-  +minutes+"m "+seconds+"s ";
-
+  "🎂 Birthday Countdown: "+days+"d "+hours+"h "+minutes+"m "+seconds+"s";
 },1000);
 
-/* CAKE CUT */
+/* Cake Cut */
 function cutCake(){
   document.getElementById("msg").style.display="block";
-
-  for(let i=0;i<50;i++){
-    let confetti = document.createElement("div");
-    confetti.classList.add("confetti");
-    confetti.style.left = Math.random()*100+"vw";
-    confetti.style.background = 
-      "hsl(" + Math.random()*360 + ",100%,50%)";
-    document.body.appendChild(confetti);
-
-    setTimeout(()=>confetti.remove(),3000);
-  }
+  document.getElementById("flame").style.display="none";
+  alert("🎊 Cake Cut Successfully! 🎊");
 }
 </script>
 
