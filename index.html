@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>For Jyoti ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Jyoti ❤️</title>
+
 <style>
 body{
   margin:0;
   font-family: 'Segoe UI', sans-serif;
-  background:black;
-  color:white;
   text-align:center;
+  background: radial-gradient(circle at top, #1a001a, black);
+  color:white;
   overflow:hidden;
 }
 
@@ -18,68 +19,73 @@ body{
   position:fixed;
   width:50%;
   height:100vh;
-  background:red;
+  background:linear-gradient(to bottom,#990000,#330000);
   top:0;
-  transition:1.5s;
+  transition:2s ease;
   z-index:10;
 }
-.left{ left:0; }
-.right{ right:0; }
-
-.open-left{ transform:translateX(-100%); }
-.open-right{ transform:translateX(100%); }
+.left{left:0;}
+.right{right:0;}
+.openL{transform:translateX(-100%);}
+.openR{transform:translateX(100%);}
 
 .enter{
   position:fixed;
   top:45%;
   width:100%;
-  font-size:28px;
+  font-size:30px;
   cursor:pointer;
   z-index:20;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%{opacity:1;}
+  50%{opacity:0.5;}
+  100%{opacity:1;}
 }
 
 .content{
   display:none;
-  padding-top:80px;
+  padding-top:70px;
 }
 
-/* Typing effect */
-.typing{
-  border-right:3px solid pink;
-  white-space:nowrap;
-  overflow:hidden;
-  width:0;
-  animation: typing 3s steps(20,end) forwards;
+/* Glow text */
+h1{
+  font-size:40px;
+  text-shadow:0 0 15px pink,0 0 30px purple;
 }
 
-@keyframes typing{
-  from{ width:0 }
-  to{ width:220px }
+/* Floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation: floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
 }
 
 /* Cake */
 .cake{
-  font-size:110px;
-  margin-top:20px;
+  font-size:120px;
   cursor:pointer;
-  transition:0.5s;
+  transition:0.3s;
 }
-
-.flame{
-  font-size:30px;
-  animation: flicker 0.5s infinite alternate;
-}
-
-@keyframes flicker{
-  from{ opacity:1; }
-  to{ opacity:0.5; }
+.cake:hover{
+  transform:scale(1.1);
 }
 
 #msg{
   display:none;
-  font-size:24px;
-  color:pink;
+  font-size:26px;
   margin-top:20px;
+  color:pink;
+  text-shadow:0 0 10px white;
 }
 </style>
 </head>
@@ -92,59 +98,51 @@ body{
 <div class="enter" onclick="openCurtain()">🎀 Tap To Enter 🎀</div>
 
 <div class="content" id="main">
-
 <h1>Welcome Guyz 🎉</h1>
-<h2 class="typing">Only For Jyoti ❤️</h2>
-
+<h2>Only For Jyoti ❤️</h2>
 <div id="countdown"></div>
-
-<div>
-<div class="flame" id="flame">🕯️🕯️🕯️</div>
 <div class="cake" onclick="cutCake()">🎂</div>
+<div id="msg">Happy Birthday Jyoti 💖✨<br>You Are My Sunshine ☀️</div>
 </div>
 
-<div id="msg">
-Happy Birthday Jyoti 💖🎉<br>
-You are Special ✨
-</div>
-
-</div>
-
-<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+<audio id="music" 
+src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+</audio>
 
 <script>
 function openCurtain(){
-  document.querySelector(".left").classList.add("open-left");
-  document.querySelector(".right").classList.add("open-right");
+  document.querySelector(".left").classList.add("openL");
+  document.querySelector(".right").classList.add("openR");
   document.querySelector(".enter").style.display="none";
   setTimeout(()=>{
     document.getElementById("main").style.display="block";
     document.body.style.overflow="auto";
     document.getElementById("music").play();
-  },1500);
+  },2000);
 }
 
 /* Countdown */
 var birthday = new Date("Nov 15, 2026 00:00:00").getTime();
-
 setInterval(function(){
   var now = new Date().getTime();
   var distance = birthday - now;
-
   var days = Math.floor(distance/(1000*60*60*24));
-  var hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  var minutes = Math.floor((distance%(1000*60*60))/(1000*60));
-  var seconds = Math.floor((distance%(1000*60))/1000);
-
   document.getElementById("countdown").innerHTML =
-  "🎂 Birthday Countdown: "+days+"d "+hours+"h "+minutes+"m "+seconds+"s";
+  "🎂 "+days+" Days Left";
 },1000);
 
-/* Cake Cut */
+/* Cake */
 function cutCake(){
   document.getElementById("msg").style.display="block";
-  document.getElementById("flame").style.display="none";
-  alert("🎊 Cake Cut Successfully! 🎊");
+  for(let i=0;i<30;i++){
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+15)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+  }
 }
 </script>
 
