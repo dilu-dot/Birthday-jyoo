@@ -2,123 +2,186 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Jyoti ❤️</title>
+<title>Happy Birthday Jyoti ❤️</title>
 
 <style>
 body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  overflow-x:hidden;
   text-align:center;
-  background: radial-gradient(circle at top, #1a001a, black);
-  color:white;
-  overflow:hidden;
 }
 
-/* Curtain */
-.curtain{
-  position:fixed;
-  width:50%;
-  height:100vh;
-  background:linear-gradient(to bottom,#990000,#330000);
-  top:0;
-  transition:2s ease;
-  z-index:10;
-}
-.left{left:0;}
-.right{right:0;}
-.openL{transform:translateX(-100%);}
-.openR{transform:translateX(100%);}
-
-.enter{
-  position:fixed;
-  top:45%;
-  width:100%;
-  font-size:30px;
-  cursor:pointer;
-  z-index:20;
-  animation: pulse 1.5s infinite;
+/* Card */
+.card{
+  background:white;
+  width:90%;
+  max-width:400px;
+  margin:40px auto;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
-@keyframes pulse{
-  0%{opacity:1;}
-  50%{opacity:0.5;}
-  100%{opacity:1;}
-}
-
-.content{
-  display:none;
-  padding-top:70px;
-}
-
-/* Glow text */
 h1{
-  font-size:40px;
-  text-shadow:0 0 15px pink,0 0 30px purple;
+  font-family:cursive;
+  color:#e91e63;
+}
+
+button{
+  background:#ff4081;
+  color:white;
+  border:none;
+  padding:12px 25px;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+img{
+  width:150px;
+  border-radius:50%;
+  margin:15px;
 }
 
 /* Floating hearts */
 .heart{
   position:fixed;
-  bottom:-20px;
+  bottom:-10px;
   font-size:20px;
-  animation: floatUp 6s linear infinite;
+  animation: float 6s linear infinite;
 }
-@keyframes floatUp{
+@keyframes float{
   to{
     transform:translateY(-110vh);
     opacity:0;
   }
 }
 
-/* Cake */
+/* Cute Cake */
 .cake{
-  font-size:120px;
-  cursor:pointer;
-  transition:0.3s;
-}
-.cake:hover{
-  transform:scale(1.1);
+  position:relative;
+  width:200px;
+  height:140px;
+  margin:20px auto;
 }
 
-#msg{
-  display:none;
-  font-size:26px;
-  margin-top:20px;
-  color:pink;
-  text-shadow:0 0 10px white;
+.base{
+  width:200px;
+  height:100px;
+  background:#fff;
+  border-radius:15px;
+  position:absolute;
+  bottom:0;
+  box-shadow:0 5px 10px rgba(0,0,0,0.2);
 }
+
+.frosting{
+  width:200px;
+  height:40px;
+  background:#6a5acd;
+  border-radius:15px 15px 0 0;
+  position:absolute;
+  top:0;
+}
+
+.eye{
+  width:15px;
+  height:15px;
+  background:black;
+  border-radius:50%;
+  position:absolute;
+  top:60px;
+}
+.eye.left{ left:60px; }
+.eye.right{ right:60px; }
+
+.mouth{
+  width:30px;
+  height:15px;
+  background:black;
+  border-radius:0 0 30px 30px;
+  position:absolute;
+  top:80px;
+  left:85px;
+}
+
+/* Candle */
+.candle{
+  width:10px;
+  height:40px;
+  background:white;
+  position:absolute;
+  top:-40px;
+}
+
+.c1{ left:50px;}
+.c2{ left:95px;}
+.c3{ left:140px;}
+
+.flame{
+  width:10px;
+  height:15px;
+  background:orange;
+  border-radius:50%;
+  position:absolute;
+  top:-15px;
+  animation:flicker 0.5s infinite alternate;
+}
+
+@keyframes flicker{
+  from{ transform:scale(1);}
+  to{ transform:scale(1.2);}
+}
+
+.hidden{ display:none; }
+
 </style>
 </head>
 
 <body>
 
-<div class="curtain left"></div>
-<div class="curtain right"></div>
+<div class="card">
+<h1>Happy Birthday, Beautiful ❤️</h1>
+<p>Today is all about celebrating you ✨</p>
+<button onclick="start()">Start the Celebration 🎉</button>
 
-<div class="enter" onclick="openCurtain()">🎀 Tap To Enter 🎀</div>
+<div id="content" class="hidden">
 
-<div class="content" id="main">
-<h1>Welcome Guyz 🎉</h1>
-<h2>Only For Jyoti ❤️</h2>
+<img src="jyoti.jpg">
+
+<h2>Only For Jyoti 💖</h2>
+
 <div id="countdown"></div>
-<div class="cake" onclick="cutCake()">🎂</div>
-<div id="msg">Happy Birthday Jyoti 💖✨<br>You Are My Sunshine ☀️</div>
+
+<div class="cake" onclick="cutCake()">
+  <div class="frosting"></div>
+  <div class="base"></div>
+  <div class="eye left"></div>
+  <div class="eye right"></div>
+  <div class="mouth"></div>
+
+  <div class="candle c1"><div class="flame"></div></div>
+  <div class="candle c2"><div class="flame"></div></div>
+  <div class="candle c3"><div class="flame"></div></div>
 </div>
 
-<audio id="music" 
-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
-</audio>
+<p id="msg" class="hidden">
+You are my sunshine ☀️<br>
+Stay blessed forever 💕
+</p>
+
+</div>
+</div>
+
+<audio id="music" src="song.mp3"></audio>
 
 <script>
-function openCurtain(){
-  document.querySelector(".left").classList.add("openL");
-  document.querySelector(".right").classList.add("openR");
-  document.querySelector(".enter").style.display="none";
-  setTimeout(()=>{
-    document.getElementById("main").style.display="block";
-    document.body.style.overflow="auto";
-    document.getElementById("music").play();
-  },2000);
+function start(){
+  document.getElementById("content").classList.remove("hidden");
+  document.getElementById("music").play();
 }
 
 /* Countdown */
@@ -131,15 +194,14 @@ setInterval(function(){
   "🎂 "+days+" Days Left";
 },1000);
 
-/* Cake */
+/* Cake Click */
 function cutCake(){
-  document.getElementById("msg").style.display="block";
-  for(let i=0;i<30;i++){
+  document.getElementById("msg").classList.remove("hidden");
+  for(let i=0;i<20;i++){
     let heart=document.createElement("div");
     heart.className="heart";
     heart.innerHTML="💖";
     heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=(Math.random()*20+15)+"px";
     document.body.appendChild(heart);
     setTimeout(()=>heart.remove(),6000);
   }
